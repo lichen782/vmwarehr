@@ -1,0 +1,32 @@
+{% extends 'resume_mgmt/bootstrap.html' %}
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% bootstrap_css %}                                                             
+{% bootstrap_javascript %}                                                      
+
+{% block title %}VMWare HR{% endblock %}
+
+
+{% block bootstrap3_content %}
+<link rel="stylesheet" type="text/css" href="{% static 'resume_mgmt/login.css' %}" />
+  <div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>HR<span>VMWare</span></div>
+		</div>
+		<br>
+       <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+		<div class="login">
+            {{ form.username }}
+            <!--input id="id_username" type="text" placeholder="username" name="user"/--><br>
+            {{ form.password }}
+            <!--input id="id_password" type="password" placeholder="password" name="password"/--><br>
+            <input type="hidden" name="next" value="{{ next }}" />
+		    <input type="button" value="Login" onclick="this.form.submit();">
+		</div>
+    </form>
+<script src="{% static 'resume_mgmt/prefixfree.min.js' %}"></script>
+{% endblock %}
