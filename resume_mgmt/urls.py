@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^resume/logout/$', auth_views.logout, {'template_name': 'resume_mgmt/login.html'}, name="logout"),
     url(r'^resume/create/$', views.create, name="create"),
     url(r'^resume/edit/$', views.edit, name="edit"),
-    url(r'^resume/query/$', views.query, name="query"),
+    #url(r'^resume/query/$', views.query, name="query"),
+    url(r'^resume/test/$', views.test, name="test"),
     url(r'^admin/', admin.site.urls),
+    url(r'^(?P<pk>[0-9]+)/query/$', views.Query.as_view(), name='query'),
+
 ]

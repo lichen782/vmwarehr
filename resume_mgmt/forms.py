@@ -1,7 +1,7 @@
 from django import forms
-from .models import User
+from .models import Resume
 
-class userForm(forms.ModelForm):
+class ResumeForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = Resume
         fields = '__all__'
