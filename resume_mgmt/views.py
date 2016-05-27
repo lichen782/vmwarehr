@@ -12,23 +12,39 @@ def success(request):
     return render(request, 'resume_mgmt/index.html')
 
 @login_required(login_url='/resume/login/')
-def create(request):
-    return render(request, "resume_mgmt/create.html")
-
-@login_required(login_url='/resume/login/')
 def edit(request):
     return render(request, 'resume_mgmt/edit.html')
 
 #@login_required(login_url='/resume/login/')
 class Query(generic.DetailView):
     model = Resume
+    template_name = 'resume_mgmt/querydetail.html'
+
+class QueryView(generic.ListView):
     template_name = 'resume_mgmt/query.html'
+    context_object_name = 'resumelist'
+    queryset =  Resume.objects.all()
 
+
+@login_required(login_url='/resume/login/')
 def test(request):
-    form = ResumeForm(request.POST or None)
+        form = ResumeForm(request.POST or None)
+        if form.is_valid():
+            saveit= form.save(commit=False)
+            saveit.save()
+            return HttpResponseRedirect("/resume/query")
 
-    if form.is_valid():
-        saveit= form.save(commit=False)
-        saveit.save()
-    return render_to_response("resume_mgmt/test.html", locals(), context_instance=RequestContext(request))
-    #return HttpResponseRedirect(reverse('resume/query', args=(form.auto_id,))) # use this and find ID to get it to work
+        return render_to_response("resume_mgmt/test.html", locals(), context_instance=RequestContext(request))
+
+def edit(request, pk):
+    post = get_object_or_404(Resume, pk=pk)
+    if request.method == "POST":
+        form = ResumeForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('/resume/query', pk=post.pk)
+    else:
+        form = ResumeForm(instance=post)
+
+    return render_to_response("resume_mgmt/edit.html", locals(), context_instance=RequestContext(request))

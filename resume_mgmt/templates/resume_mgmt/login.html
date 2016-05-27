@@ -19,7 +19,7 @@
 			<div>HR<span>VMWare</span></div>
 		</div>
 		<br>
-       <form method="post" action="{% url "login" %}">
+       <form method="post" action="{% url "resume_mgmt:login" %}">
         {% csrf_token %}
 		<div class="login">
             {{ form.username }}
