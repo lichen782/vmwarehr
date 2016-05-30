@@ -23,7 +23,17 @@ class Query(generic.DetailView):
 class QueryView(generic.ListView):
     template_name = 'resume_mgmt/query.html'
     context_object_name = 'resumelist'
-    queryset =  Resume.objects.all()
+    #queryset = Resume.objects.all()
+
+    def get_queryset(self):
+        if self.request.GET.get("sort"):
+            return Resume.objects.all().order_by(self.request.GET.get("sort"))
+        else:
+            return Resume.objects.all()
+
+def sorts(request):
+    if request.GET.get("sort_name"):
+        return Resume.objects.order_by("name")
 
 
 @login_required(login_url='/resume/login/')

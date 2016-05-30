@@ -6,12 +6,26 @@ Query
 
 {% block content %}
     {% if resumelist %}
-        <ul>
-            {% for resume in resumelist %}
-                <li><a href="{% url 'resume_mgmt:query' resume.id %}">{{ resume.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <table width="500" border="1">
+            <form action="">
+                <tr>
+                    <th><button type="submit" name="sort" value="name" >&nbsp;Name▼</button></th>
+                    <th><button type="submit" name="sort" value="email">&nbsp;Email▼</button></th>
+                    <th><button type="submit" name="sort" value="age">&nbsp;Age▼</button></th>
+                    <th>Date</th>
+                </tr>
+            </form>
 
+            {% for resume in resumelist %}
+                <tr>
+                    <td><a href="{% url 'resume_mgmt:query' resume.id %}">{{ resume.name }}</a> </td>
+                    <td>{{ resume.email }}</td>
+                    <td>{{ resume.age }}</td>
+                    <td>{{ resume.start_date }} --> {{ resume.end_date }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    {% endif %}
 {% endblock %}
 
