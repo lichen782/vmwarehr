@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, render_to_response, RequestContext, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from .forms import ResumeForm
 from django.views import generic
 from .models import Resume
-from django.core.urlresolvers import reverse
+from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 # Create your views here.
 @login_required(login_url='/resume/login/')
@@ -23,7 +24,6 @@ class Query(generic.DetailView):
 class QueryView(generic.ListView):
     template_name = 'resume_mgmt/query.html'
     context_object_name = 'resumelist'
-    #queryset = Resume.objects.all()
 
     def get_queryset(self):
         if self.request.GET.get("sort"):

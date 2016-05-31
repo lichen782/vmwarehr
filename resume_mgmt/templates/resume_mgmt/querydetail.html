@@ -5,6 +5,7 @@ Query
 {% endblock %}
 
 {% block content %}
+
    <table width="400" height="150" border="1" >
     <tr>
         <td>Name</td>
@@ -19,23 +20,39 @@ Query
         <td> {{ resume.age }} </td>
     </tr>
     <tr>
+        <td>Gender</td>
+        <td> {{ resume.gender }} </td>
+    </tr>
+    <tr>
         <td>Telephone</td>
         <td> {{ resume.telephone }} </td>
+    </tr>
+    <tr>
+        <td>Graduate Year</td>
+        <td> {{ resume.grad_year }} </td>
     </tr>
     <tr>
         <td>Graduate School</td>
         <td> {{ resume.school }} </td>
     </tr>
     <tr>
-        <td>Date Range</td>
-        <td> {{ resume.start_date }} ---> {{ resume.end_date }} </td>
+        <td>Date Created</td>
+        <td> {{ resume.create_date }} </td>
     </tr>
     <tr>
         <td>Home Address</td>
         <td> {{ resume.address }} </td>
     </tr>
+    <tr>
+        <td>Job Type</td>
+        <td> {{ resume.Application_Type }} </td>
+    </tr>
+     <tr>
+        <td>Status</td>
+        <td> {{ resume.status }} </td>
+    </tr>
 
-    <a class="btn btn-default" href="{% url 'resume_mgmt:edit' resume.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'resume_mgmt:edit' resume.id %}"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 
 
 {% endblock %}

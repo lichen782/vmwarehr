@@ -5,6 +5,7 @@ from . import views
 
 app_name = 'resume_mgmt'
 urlpatterns = [
+    url(r'^$', views.success, name='success'),
     url(r'^resume/$', views.success, name='success'),
     url(r'^resume/login/$', auth_views.login, {'template_name': 'resume_mgmt/login.html'}, name="login"),
     url(r'^resume/logout/$', auth_views.logout, {'template_name': 'resume_mgmt/login.html'}, name="logout"),
