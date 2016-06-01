@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from .forms import ResumeForm
 from django.views import generic
 from .models import Resume
+from django.db.models import Q
+import operator
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
@@ -26,14 +28,27 @@ class QueryView(generic.ListView):
     context_object_name = 'resumelist'
 
     def get_queryset(self):
-        if self.request.GET.get("sort"):
-            return Resume.objects.all().order_by(self.request.GET.get("sort"))
-        else:
-            return Resume.objects.all()
+        resume_list = Resume.objects.all()
 
-def sorts(request):
-    if request.GET.get("sort_name"):
-        return Resume.objects.order_by("name")
+        query = self.request.GET.get('search')
+        if query:
+            filtered_list = resume_list.filter(Q(name__istartswith=query) |
+                                      Q(age__icontains=query))
+            return filtered_list
+
+        if self.request.GET.get("sort"):
+            global filtered_list
+            return filtered_list.order_by(self.request.GET.get("sort"))
+        else:
+            return resume_list
+
+class SearchResultsView(generic.ListView):
+    template_name = 'resume_mgmt/query.html'
+    context_object_name = 'searchlist'
+
+    def get_queryset(self):
+        q = self.request.GET['q']
+        return Resume.objects.filter(name__search=q)
 
 
 @login_required(login_url='/resume/login/')

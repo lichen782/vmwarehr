@@ -6,6 +6,11 @@ Query
 
 {% block content %}
     {% if resumelist %}
+        <form id="searchform" action="" style="margin-left:455px" method="GET"/>
+        <input type="text" placeholder="Search by Name or Age" name="search"  value={{ request.GET.search }} >
+        <input type="submit" value="Search"/>
+        </form>
+
         <table width="700" border="1">
             <form action="">
                 <tr>
