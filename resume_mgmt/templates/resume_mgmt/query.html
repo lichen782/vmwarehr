@@ -6,20 +6,19 @@ Query
 
 {% block content %}
     {% if resumelist %}
-        <form id="searchform" action="" style="margin-left:455px" method="GET"/>
-        <input type="text" placeholder="Search by Name or Age" name="search"  value={{ request.GET.search }} >
-        <input type="submit" value="Search"/>
-        </form>
+        <!--<form id="searchform" action="" style="margin-left:455px" method="GET">
+        </form> -->
 
-        <table width="700" border="1">
             <form action="">
+                <input id="search_box" type="text" placeholder="Search by Name or Age" name="search"  value={{ request.GET.search }} >
+                <input type="submit" value="Search"/>
+                <table width="700" border="1">
                 <tr>
                     <th><button type="submit" name="sort" value="name" >&nbsp;Name▼</button></th>
                     <th><button type="submit" name="sort" value="email">&nbsp;Email▼</button></th>
                     <th><button type="submit" name="sort" value="age">&nbsp;Age▼</button></th>
                     <th>Date Created</th>
                     <th><button type="submit" name="sort" value="status">&nbsp;Status▼</button></th>
-
                 </tr>
             </form>
 
@@ -33,7 +32,7 @@ Query
                 </tr>
             {% endfor %}
 
-        </table>
+                </table>
     {% endif %}
 {% endblock %}
 

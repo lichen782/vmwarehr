@@ -29,19 +29,22 @@ class QueryView(generic.ListView):
 
     def get_queryset(self):
         resume_list = Resume.objects.all()
-
         query = self.request.GET.get('search')
+
         if query:
-            filtered_list = resume_list.filter(Q(name__istartswith=query) |
+            filtered_list = Resume.objects.filter(Q(name__istartswith=query) |
                                       Q(age__icontains=query))
-            return filtered_list
+            #return filtered_list
+        else:
+            filtered_list = Resume.objects.all()
 
         if self.request.GET.get("sort"):
             global filtered_list
             return filtered_list.order_by(self.request.GET.get("sort"))
         else:
-            return resume_list
+            return filtered_list
 
+'''
 class SearchResultsView(generic.ListView):
     template_name = 'resume_mgmt/query.html'
     context_object_name = 'searchlist'
@@ -49,7 +52,7 @@ class SearchResultsView(generic.ListView):
     def get_queryset(self):
         q = self.request.GET['q']
         return Resume.objects.filter(name__search=q)
-
+'''
 
 @login_required(login_url='/resume/login/')
 def test(request):

@@ -14,6 +14,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^resume/query/(?P<pk>[0-9]+)$', views.Query.as_view(), name='query'),
     url(r'^resume/edit/(?P<pk>[0-9]+)$', views.edit, name="edit"),
-    url(r'^resume/query/?q=', views.SearchResultsView.as_view(), name="search"),
 
 ]
